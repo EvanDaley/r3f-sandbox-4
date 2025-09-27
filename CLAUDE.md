@@ -1,0 +1,59 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Development Commands
+
+Start development server: `npm start` or `npm run dev`
+Build for production: `npm run build`
+Run tests: `npm test`
+Deploy to GitHub Pages: `npm run ship` (builds and deploys)
+
+## Architecture Overview
+
+This is a React Three Fiber (R3F) application with peer-to-peer networking using PeerJS. The app allows multiple browser tabs to connect and synchronize in a 3D environment.
+
+### Core Architecture Components
+
+**Application Structure:**
+- `App.js` renders `HTMLContent` (2D UI overlay) and `ThreeCanvas` (3D scene)
+- `ThreeCanvas.js` uses scene store to dynamically render different scene components
+- Scenes are managed through `sceneStore.js` with a simple scene switching system
+
+**Networking Layer (PeerJS):**
+- `PeerManager.js`: Core P2P connection management, handles peer initialization and connection setup
+- `MessageRouter.js`: Routes incoming messages to appropriate handlers based on scene and message type
+- `handlers/`: Scene-specific message handlers (currently common.js and scene1.js)
+- Host/client roles are automatically determined: incoming connections make you a host, outgoing connections make you a client
+
+**State Management (Zustand):**
+- `peerStore.js`: Manages peer connections, IDs, host/client status, and player data
+- `sceneStore.js`: Manages current scene and scene transitions
+- Both stores use Redux DevTools for debugging (randomized store names to avoid conflicts between tabs)
+
+**Scene System:**
+- Scene components are dynamically loaded based on `currentSceneId` in scene store
+- `WelcomeScreen.js`: Connection interface with 3D robot model and connection UI
+- Scene components can access peer state through `usePeerConnection` hook
+
+### Key Patterns
+
+**Peer Connection Flow:**
+1. Each tab initializes a peer with `initPeer()`
+2. Users enter peer IDs to connect via `connectToPeer()`
+3. Host/client roles are set automatically during connection
+4. All connections are stored in peerStore for message routing
+
+**Message Handling:**
+- Messages have structure: `{ scene: 'scene1', type: 'messageType', payload: {...} }`
+- MessageRouter looks for handlers in `handlers/[scene].js` first, falls back to `handlers/common.js`
+- Add new message types by creating handler functions in appropriate handler files
+
+**Development Setup:**
+- Uses Redux DevTools for state debugging (open two tabs and connect them)
+- Peer IDs are displayed in top-right corner for easy testing
+- All peer connections initialize automatically on app load
+
+## Testing
+
+Open two Chrome tabs to test peer connections. One tab becomes the host (receives connections), the other becomes the client (initiates connection). Use the peer ID displayed in the top-right corner to connect between tabs.
