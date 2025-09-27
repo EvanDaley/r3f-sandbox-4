@@ -1,10 +1,10 @@
 import create from 'zustand'
 import WelcomeScreen from '../scenes/WelcomeScreen'
-import SimpleSpellsScene from '../scenes/simple_spells/SimpleSpellsScene'
+import HelloExampleScene from '../scenes/hello_example/HelloExampleScene'
 
 const scenes = [
   { id: 'welcome', scene: WelcomeScreen },
-  { id: 'simpleSpells', scene: SimpleSpellsScene },
+  { id: 'helloExampleScene', scene: HelloExampleScene },
 ]
 
 const defaultScene = 'welcome'
