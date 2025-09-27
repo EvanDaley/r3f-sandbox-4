@@ -31,8 +31,10 @@ function HelloScene() {
             <HelloModel
                 visible={!clicked}
                 onClick={() => {
-                    setClicked(true)
-                    setAnimating(true) // start lerp once clicked
+                    if (!clicked) {             // 👈 only trigger once
+                        setClicked(true)
+                        setAnimating(true)
+                    }
                 }}
                 onPointerOver={() => setHovered(true)}
                 onPointerOut={() => setHovered(false)}
