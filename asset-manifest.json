@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/r3f-sandbox-4/static/css/main.4be3af20.css",
+    "main.js": "/r3f-sandbox-4/static/js/main.332fa132.js",
+    "index.html": "/r3f-sandbox-4/index.html",
+    "main.4be3af20.css.map": "/r3f-sandbox-4/static/css/main.4be3af20.css.map",
+    "main.332fa132.js.map": "/r3f-sandbox-4/static/js/main.332fa132.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4be3af20.css",
+    "static/js/main.332fa132.js"
+  ]
+}
