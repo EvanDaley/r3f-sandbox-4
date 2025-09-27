@@ -1,29 +1,38 @@
-﻿import React, { Suspense } from 'react'
-import {
-    OrbitControls,
-    Stage,
-    PerspectiveCamera,
-    Environment,
-    useAspect,
-    useVideoTexture,
-    useTexture, OrthographicCamera
-} from '@react-three/drei'
+﻿import * as THREE from 'three'
+import React, { Suspense, useState } from 'react'
+import { useFrame } from '@react-three/fiber'
+import {OrthographicCamera, Preload, useCursor} from '@react-three/drei'
+import { HelloModel, HelloFragments } from './HelloText'
 
-// Helper so all asset paths work in dev + production with subpaths
-function asset(path) {
-    return `${process.env.PUBLIC_URL}${path}`
+function Scene() {
+    const vec = new THREE.Vector3()
+    const [clicked, setClicked] = useState(false)
+    const [hovered, setHovered] = useState(false)
+    useCursor(hovered)
+    useFrame((state) => {
+        state.camera.position.lerp(vec.set(clicked ? -10 : 0, clicked ? 10 : 0, 20), 0.1)
+        state.camera.lookAt(0, 0, 0)
+    })
+    return (
+        <group>
+            <HelloFragments visible={clicked} />
+            <HelloModel visible={!clicked} onClick={() => setClicked(true)} onPointerOver={() => setHovered(true)} onPointerOut={() => setHovered(false)} />
+        </group>
+    )
 }
 
-export default function Scene() {
+export default function App() {
     return (
+        // <Canvas dpr={[1, 2]} orthographic camera={{ zoom: 250 }}>
+
         <>
-            <OrthographicCamera makeDefault position={[15, 15, 15]} zoom={60} />
+            <OrthographicCamera makeDefault zoom={250} />
 
+            <ambientLight />
             <Suspense fallback={null}>
-                <Environment preset="studio" background blur={1.5} />
+                <Scene />
+                <Preload all />
             </Suspense>
-
-            <OrbitControls target={[1, 1, 0]} />
         </>
     )
 }

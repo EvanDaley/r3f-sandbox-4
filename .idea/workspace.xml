@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d0b72c7-b686-4aa4-b650-87f647df64fc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/scenes/hello_example/HelloExampleScene.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/models/Robot.blend" beforeDir="false" afterPath="$PROJECT_DIR$/build/models/Robot.blend" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/models/Robot.glb" beforeDir="false" afterPath="$PROJECT_DIR$/build/models/Robot.glb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.06dea530.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.06dea530.js.LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/static/js/main.06dea530.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/sceneStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/sceneStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scenes/hello_example/HelloText.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scenes/hello_example/HelloExampleScene.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/hello_example/HelloExampleScene.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +88,7 @@
       <updated>1757300791629</updated>
       <workItem from="1757300792940" duration="5657000" />
       <workItem from="1758936791247" duration="596000" />
-      <workItem from="1759012442619" duration="825000" />
+      <workItem from="1759012442619" duration="1517000" />
     </task>
     <servers />
   </component>
