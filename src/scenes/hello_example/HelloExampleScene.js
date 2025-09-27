@@ -1,36 +1,69 @@
 ﻿import * as THREE from 'three'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useState, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import {OrthographicCamera, Preload, useCursor} from '@react-three/drei'
+import { OrbitControls, OrthographicCamera, Preload, useCursor } from '@react-three/drei'
 import { HelloModel, HelloFragments } from './HelloText'
 
-function Scene() {
+function HelloScene() {
     const vec = new THREE.Vector3()
     const [clicked, setClicked] = useState(false)
     const [hovered, setHovered] = useState(false)
+    const [animating, setAnimating] = useState(false)
+
     useCursor(hovered)
+
     useFrame((state) => {
-        state.camera.position.lerp(vec.set(clicked ? -10 : 0, clicked ? 10 : 0, 20), 0.1)
+        if (!animating) return
+
+        const target = vec.set(-10, 10, 20)
+        state.camera.position.lerp(target, 0.1)
         state.camera.lookAt(0, 0, 0)
+
+        if (state.camera.position.distanceTo(target) < 0.01) {
+            // stop overriding the camera
+            setAnimating(false)
+        }
     })
+
     return (
         <group>
             <HelloFragments visible={clicked} />
-            <HelloModel visible={!clicked} onClick={() => setClicked(true)} onPointerOver={() => setHovered(true)} onPointerOut={() => setHovered(false)} />
+            <HelloModel
+                visible={!clicked}
+                onClick={() => {
+                    setClicked(true)
+                    setAnimating(true) // start lerp once clicked
+                }}
+                onPointerOver={() => setHovered(true)}
+                onPointerOut={() => setHovered(false)}
+            />
         </group>
     )
 }
 
-export default function App() {
-    return (
-        // <Canvas dpr={[1, 2]} orthographic camera={{ zoom: 250 }}>
 
+export default function Scene() {
+    const controlsRef = useRef()
+
+    return (
         <>
-            <OrthographicCamera makeDefault zoom={250} />
+            <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={260} />
+            <OrbitControls
+                ref={controlsRef}
+                enableZoom={true}
+                rotateSpeed={2.22}
+                enablePan={true}
+                enableRotate={true}
+                mouseButtons={{
+                    LEFT: THREE.MOUSE.PAN,
+                    MIDDLE: THREE.MOUSE.ROTATE,
+                    RIGHT: THREE.MOUSE.DOLLY,
+                }}
+            />
 
             <ambientLight />
             <Suspense fallback={null}>
-                <Scene />
+                <HelloScene controlsRef={controlsRef} />
                 <Preload all />
             </Suspense>
         </>
