@@ -8,7 +8,7 @@ const normalMaterial = new THREE.MeshNormalMaterial({
 normalMaterial.color = new THREE.Color(0, 0, 1)
 
 const innerMaterial = new THREE.MeshDepthMaterial()
-const redPhong = new THREE.MeshPhongMaterial({ color: 0xff4444, shininess: 30 })
+const redPhong = new THREE.MeshPhongMaterial({ color: 0x4444FF, shininess: 30 })
 
 const redNormalMaterial = new THREE.MeshNormalMaterial()
 
@@ -19,6 +19,10 @@ redNormalMaterial.onBeforeCompile = (shader) => {
       vec3 baseColor = packNormalToRGB(normal);
       // bias toward red (scale R up, G/B down)
       baseColor = normalize(baseColor * vec3(2.0, 0.5, 0.5));
+      
+      // bias toward green/blue 
+      // baseColor = normalize(baseColor * vec3(.65, 0.9, 0.9));
+      
       gl_FragColor = vec4(baseColor, opacity);
     `
     )

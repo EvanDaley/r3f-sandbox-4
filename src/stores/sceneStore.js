@@ -7,7 +7,7 @@ const scenes = [
   { id: 'helloExampleScene', scene: HelloExampleScene },
 ]
 
-const defaultScene = 'welcome'
+const defaultScene = 'helloExampleScene'
 
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,

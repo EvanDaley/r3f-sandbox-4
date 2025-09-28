@@ -3,6 +3,7 @@ import React, { Suspense, useState, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { OrbitControls, OrthographicCamera, Preload, useCursor } from '@react-three/drei'
 import { HelloModel, HelloFragments } from './HelloText'
+import ExampleGeode from "../../components/props/examples/ExampleGeode";
 
 function HelloScene() {
     const vec = new THREE.Vector3()
@@ -39,6 +40,8 @@ function HelloScene() {
                 onPointerOver={() => setHovered(true)}
                 onPointerOut={() => setHovered(false)}
             />
+
+            <ExampleGeode/>
         </group>
     )
 }
