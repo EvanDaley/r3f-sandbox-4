@@ -1,9 +1,10 @@
 ﻿import * as THREE from 'three'
 import React, { Suspense, useState, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { OrbitControls, OrthographicCamera, Preload, useCursor } from '@react-three/drei'
+import {OrbitControls, OrthographicCamera, Preload, Stage, useCursor} from '@react-three/drei'
 import { HelloModel, HelloFragments } from './HelloText'
 import ExampleGeode from "../../components/props/examples/ExampleGeode";
+import ExampleShip from "../../components/props/examples/ExampleShip";
 
 function HelloScene() {
     const vec = new THREE.Vector3()
@@ -28,20 +29,36 @@ function HelloScene() {
 
     return (
         <group>
-            <HelloFragments visible={clicked} />
-            <HelloModel
-                visible={!clicked}
-                onClick={() => {
-                    if (!clicked) {             // 👈 only trigger once
-                        setClicked(true)
-                        setAnimating(true)
-                    }
-                }}
-                onPointerOver={() => setHovered(true)}
-                onPointerOut={() => setHovered(false)}
-            />
+            {/*<directionalLight*/}
+            {/*    position={[5, 10, 5]}*/}
+            {/*    intensity={10.5*/}
+            {/*    }*/}
+            {/*    castShadow*/}
+            {/*/>*/}
+            <Stage
+                intensity={0}
+                environment={{ preset: 'forest' }}
+                shadows={{ type: 'accumulative', bias: -0.001, intensity: Math.PI }}
+                adjustCamera={false}
+                background={true}
+            >
+                <HelloFragments visible={clicked} />
+                <HelloModel
+                    visible={!clicked}
+                    onClick={() => {
+                        if (!clicked) {             // 👈 only trigger once
+                            setClicked(true)
+                            setAnimating(true)
+                        }
+                    }}
+                    onPointerOver={() => setHovered(true)}
+                    onPointerOut={() => setHovered(false)}
+                />
 
-            <ExampleGeode/>
+                {/*<ExampleGeode/>*/}
+                <ExampleShip/>
+
+            </Stage>
         </group>
     )
 }
