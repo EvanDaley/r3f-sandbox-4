@@ -13,7 +13,7 @@ const scenes = [
   { id: 'colorTheory3', scene: ColorTheory3 },
 ]
 
-const defaultScene = 'colorTheory3'
+const defaultScene = 'helloExampleScene'
 
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,

@@ -5,6 +5,7 @@ import {OrbitControls, OrthographicCamera, Preload, Stage, useCursor} from '@rea
 import { HelloModel, HelloFragments } from './HelloText'
 import ExampleGeode from "../../components/props/examples/ExampleGeode";
 import ExampleShip from "../../components/props/examples/ExampleShip";
+import EffectsV1 from "../../components/effects/EffectsV1";
 
 function HelloScene() {
     const vec = new THREE.Vector3()
@@ -29,12 +30,8 @@ function HelloScene() {
 
     return (
         <group>
-            {/*<directionalLight*/}
-            {/*    position={[5, 10, 5]}*/}
-            {/*    intensity={10.5*/}
-            {/*    }*/}
-            {/*    castShadow*/}
-            {/*/>*/}
+            <EffectsV1/>
+
             <Stage
                 intensity={0}
                 environment={{ preset: 'forest' }}
@@ -77,9 +74,9 @@ export default function Scene() {
                 enablePan={true}
                 enableRotate={true}
                 mouseButtons={{
-                    LEFT: THREE.MOUSE.PAN,
+                    LEFT: null,
                     MIDDLE: THREE.MOUSE.ROTATE,
-                    RIGHT: THREE.MOUSE.DOLLY,
+                    RIGHT: THREE.MOUSE.PAN
                 }}
             />
 
