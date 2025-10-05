@@ -57,6 +57,7 @@ export default function DynamicPaletteDrone2({ palette, gradientMode = "high", .
             child.geometry = child.geometry.clone()
             applyVerticalGradient(child.geometry, color, minY, maxY, gradientMode)
 
+
             // Make tertiary more emissive
             const emissiveIntensity = isPrimary ? 0.2 : isSecondary ? 0.3 : 1
 
@@ -67,6 +68,9 @@ export default function DynamicPaletteDrone2({ palette, gradientMode = "high", .
                 roughness: 0.35,
                 metalness: 0.3,
             })
+
+            child.castShadow = true
+            child.receiveShadow = true
         })
     }, [localScene, active, gradientMode])
 

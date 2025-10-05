@@ -1,13 +1,13 @@
 export default function ColorPalettes() {
     return {
-        monochrome: {
-            label: "Sophisticated & Subtle",
-            colors: {
-                primary: "#ffb703",
-                secondary: "#fcbf49",
-                tertiary: "#e9c46a",
-            },
-        },
+        // monochrome: {
+        //     label: "Sophisticated & Subtle",
+        //     colors: {
+        //         primary: "#ffb703",
+        //         secondary: "#fcbf49",
+        //         tertiary: "#e9c46a",
+        //     },
+        // },
         misty_blue: {
             label: "Soft & Tranquil",
             colors: {

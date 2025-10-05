@@ -1,18 +1,36 @@
 import React from "react"
-import DynamicPaletteDrone2 from "../../../components/props/dynamic_palette/DynamicPaletteDrone2";
+import DynamicPaletteDrone2 from "../../../components/props/dynamic_palette/DynamicPaletteDrone2"
 import * as THREE from "three"
 
 export default function DroneCluster({ palette }) {
-    // Generate 15 drones with random positions
     const drones = React.useMemo(() => {
         const arr = []
+        const minDistance = 4.0 // roughly each drone's width
+        const range = 20        // spawn area
+        const maxAttempts = 200 // avoid infinite loops
+
         for (let i = 0; i < 15; i++) {
-            const x = THREE.MathUtils.randFloatSpread(20) // range -10 to +10
-            const z = THREE.MathUtils.randFloatSpread(20)
-            const y = 0
-            const gradientMode = Math.random() > 0.5 ? "low" : "low"
-            arr.push({ x, y, z, gradientMode })
+            let attempts = 0
+            let x, z
+            let tooClose = true
+
+            // find a non-overlapping spot
+            while (tooClose && attempts < maxAttempts) {
+                x = THREE.MathUtils.randFloatSpread(range)
+                z = THREE.MathUtils.randFloatSpread(range)
+                tooClose = arr.some(d => {
+                    const dx = d.x - x
+                    const dz = d.z - z
+                    return Math.sqrt(dx * dx + dz * dz) < minDistance
+                })
+                attempts++
+            }
+
+            // just a bit of random rotation — subtle variation
+            const rotationY = THREE.MathUtils.degToRad(THREE.MathUtils.randFloat(-15, 15))
+            arr.push({ x, y: 0, z, rotationY })
         }
+
         return arr
     }, [])
 
@@ -23,7 +41,8 @@ export default function DroneCluster({ palette }) {
                     key={i}
                     palette={palette}
                     position={[d.x, d.y, d.z]}
-                    gradientMode={d.gradientMode}
+                    rotation={[0, d.rotationY, 0]}
+                    gradientMode="low"
                 />
             ))}
         </>
