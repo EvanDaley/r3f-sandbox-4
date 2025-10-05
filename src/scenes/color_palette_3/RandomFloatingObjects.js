@@ -3,19 +3,15 @@ import { Sphere, Torus, Cone, Cylinder, Box } from "@react-three/drei"
 import FloatingEffect from "./FloatingEffect"
 
 const DEFAULT_PALETTE = {
-    label: "Sophisticated & Subtle",
-    colors: {
-        primary: "#ffb703",
-        secondary: "#fcbf49",
-        tertiary: "#e9c46a",
-    },
+    primary: "#ffb703",
+    secondary: "#fcbf49",
+    tertiary: "#e9c46a",
 }
 
 export default function RandomFloatingObjects({ palette }) {
-    // Make sure palette updates trigger new colors
+    // Parent now passes just the colors object, so handle that directly
     const { primary, secondary, tertiary } = useMemo(() => {
-        const active = palette?.colors ? palette.colors : DEFAULT_PALETTE.colors
-
+        const active = palette ?? DEFAULT_PALETTE
         return {
             primary: active.primary,
             secondary: active.secondary,
@@ -26,8 +22,9 @@ export default function RandomFloatingObjects({ palette }) {
     return (
         <>
             <FloatingEffect speed={1.2}>
-                <Box position={[0, 1, 0]}>
+                <Box position={[2, 1, 0]}>
                     <meshStandardMaterial
+                        key={primary + secondary}
                         color={primary}
                         emissive={secondary}
                         emissiveIntensity={1.5}
@@ -40,6 +37,7 @@ export default function RandomFloatingObjects({ palette }) {
             <FloatingEffect speed={0.8}>
                 <Sphere args={[0.5, 32, 32]} position={[2, 0.5, -1]}>
                     <meshStandardMaterial
+                        key={secondary + primary}
                         color={secondary}
                         emissive={primary}
                         emissiveIntensity={1.2}
@@ -50,6 +48,7 @@ export default function RandomFloatingObjects({ palette }) {
             <FloatingEffect speed={1.5}>
                 <Cylinder args={[0.5, 0.5, 2, 32]} position={[-2, 1, 1]}>
                     <meshStandardMaterial
+                        key={tertiary}
                         color={tertiary}
                         emissive={"#fff"}
                         emissiveIntensity={0.4}
@@ -64,6 +63,7 @@ export default function RandomFloatingObjects({ palette }) {
                     rotation={[0, Math.PI / 4, 0]}
                 >
                     <meshStandardMaterial
+                        key={secondary + tertiary}
                         color={secondary}
                         emissive={primary}
                         emissiveIntensity={1.0}
@@ -78,6 +78,7 @@ export default function RandomFloatingObjects({ palette }) {
                     rotation={[Math.PI / 2, 0, 0]}
                 >
                     <meshStandardMaterial
+                        key={primary + secondary + tertiary}
                         color={primary}
                         emissive={secondary}
                         emissiveIntensity={0.6}
