@@ -33,10 +33,7 @@ function applyVerticalGradient(geometry, baseColor, minY, maxY, mode = "low") {
 
 export default function DynamicPaletteDrone2({ palette, gradientMode = "high", ...props }) {
     const { scene } = useGLTF(MODEL_PATH)
-
-    // ✅ Each instance gets its own copy
     const localScene = useMemo(() => SkeletonUtils.clone(scene), [scene])
-
     const active = palette ?? DEFAULT_PALETTE
 
     useEffect(() => {
@@ -49,22 +46,25 @@ export default function DynamicPaletteDrone2({ palette, gradientMode = "high", .
         localScene.traverse((child) => {
             if (!child.isMesh) return
 
+            const name = child.name.toLowerCase()
+            const isPrimary = name.includes("1") || name.includes("primary")
+            const isSecondary = name.includes("2") || name.includes("secondary")
             const color = new THREE.Color(
-                child.name.toLowerCase().includes("1") || child.name.toLowerCase().includes("primary")
-                    ? active.primary
-                    : child.name.toLowerCase().includes("2") || child.name.toLowerCase().includes("secondary")
-                        ? active.secondary
-                        : active.tertiary
+                isPrimary ? active.primary : isSecondary ? active.secondary : active.tertiary
             )
 
-            // Simpler: overwrite the geometry and material
+            // Clone geometry so gradients are per-instance
             child.geometry = child.geometry.clone()
             applyVerticalGradient(child.geometry, color, minY, maxY, gradientMode)
 
+            // Make tertiary more emissive
+            const emissiveIntensity = isPrimary ? 0.2 : isSecondary ? 0.3 : 1
+
             child.material = new THREE.MeshStandardMaterial({
                 vertexColors: true,
-                emissive: color.clone().multiplyScalar(0.2),
-                roughness: 0.4,
+                emissive: color.clone().multiplyScalar(emissiveIntensity),
+                emissiveIntensity,
+                roughness: 0.35,
                 metalness: 0.3,
             })
         })
