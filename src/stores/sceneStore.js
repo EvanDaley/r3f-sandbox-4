@@ -4,6 +4,7 @@ import HelloExampleScene from '../scenes/hello_example/HelloExampleScene'
 import ColorTheory1 from '../scenes/color_palette_1/ColorTheory1'
 import ColorTheory2 from '../scenes/color_palette_2/ColorTheory2'
 import ColorTheory3 from '../scenes/color_palette_3/ColorTheory3'
+import ColorTheory4 from '../scenes/color_palette_4/ColorTheory4'
 
 const scenes = [
   { id: 'welcome', scene: WelcomeScreen },
@@ -11,9 +12,10 @@ const scenes = [
   { id: 'colorTheory1', scene: ColorTheory1 },
   { id: 'colorTheory2', scene: ColorTheory2 },
   { id: 'colorTheory3', scene: ColorTheory3 },
+  { id: 'colorTheory4', scene: ColorTheory4 },
 ]
 
-const defaultScene = 'colorTheory3'
+const defaultScene = 'colorTheory4'
 
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,
