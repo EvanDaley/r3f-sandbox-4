@@ -5,7 +5,7 @@ import LinesRobot from "../../components/characters/LinesRobot"
 import Floor from "./objects/grid_generator/Floor"
 import OrthographicOrbitControls from "../../components/controls/OrthographicOrbitControls";
 
-export default function Scene() {
+export default function SimpleSpellsScene() {
     return (
         <>
             <color attach="background" args={['#111111']} />

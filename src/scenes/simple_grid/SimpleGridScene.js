@@ -9,7 +9,7 @@ import UnevenlySpacedGrid from "./objects/UnevenlySpacedGrid";
 import PulsingLight from "./objects/PulsingLight";
 import {useSceneInitializer} from "./hooks/useSceneInitializer";
 
-export default function Scene() {
+export default function SimpleGridScene() {
     useSceneInitializer()
 
     return (
