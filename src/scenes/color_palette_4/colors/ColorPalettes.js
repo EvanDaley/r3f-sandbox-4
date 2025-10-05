@@ -1,5 +1,13 @@
 export default function ColorPalettes() {
     return {
+        monochrome: {
+            label: "Sophisticated & Subtle",
+            colors: {
+                primary: "#ffb703",
+                secondary: "#fcbf49",
+                tertiary: "#e9c46a",
+            },
+        },
         misty_blue: {
             label: "Soft & Tranquil",
             colors: {
@@ -46,14 +54,6 @@ export default function ColorPalettes() {
                 primary: "#7a6f9b",  // muted violet
                 secondary: "#b0a8c2", // dusty lavender
                 tertiary: "#e2ddea",  // pale lilac-gray
-            },
-        },
-        monochrome: {
-            label: "Sophisticated & Subtle",
-            colors: {
-                primary: "#ffb703",
-                secondary: "#fcbf49",
-                tertiary: "#e9c46a",
             },
         },
         complementary: {
