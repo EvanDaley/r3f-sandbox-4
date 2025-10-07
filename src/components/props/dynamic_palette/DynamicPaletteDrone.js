@@ -38,6 +38,7 @@ export default function DynamicPaletteDrone({ palette, ...props }) {
             // child.material.metalness = 0.6
             // child.material.roughness = 0.3
             child.material.needsUpdate = true
+            child.castShadow = true
         })
     }, [scene, active])
 

@@ -2,7 +2,7 @@ import create from 'zustand'
 import { devtools } from 'zustand/middleware';
 
 const storeName = `SimpleGridStore1-${Math.random().toString(36).substr(2, 5)}`;
-console.log('my store is', storeName);
+// console.log('my store is', storeName);
 
 // Dev Considerations
 // Instead of using vector coords as the main driver, should we use a 2x2 array?

@@ -149,12 +149,12 @@ function setupConnection(conn, onConnected) {
     });
 
     conn.on('data', (data) => {
-        console.log('Received from', conn.peer, ':', data);
+        // console.log('Received from', conn.peer, ':', data);
         routeMessage(conn.peer, data);
     });
 
     conn.on('iceStateChanged', (state) => {
-        console.log('ICE state changed for', conn.peer, ':', state);
+        // console.log('ICE state changed for', conn.peer, ':', state);
     });
 
     conn.on('error', (err) => {

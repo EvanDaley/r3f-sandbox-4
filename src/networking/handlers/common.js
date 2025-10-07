@@ -5,7 +5,7 @@ import {useBirdStore} from "../../scenes/birds/stores/birdStore";
 
 export function changeScene(fromPeerId, payload) {
     const { sceneId } = payload;
-    console.log(`Host ${fromPeerId} requesting scene change to: ${sceneId}`);
+    // console.log(`Host ${fromPeerId} requesting scene change to: ${sceneId}`);
     
     // Only allow scene changes from host
     // Note: We could add additional validation here if needed
@@ -14,7 +14,7 @@ export function changeScene(fromPeerId, payload) {
 
 export function playerInfo(fromPeerId, payload) {
     const { name } = payload;
-    console.log(`Received player info from ${fromPeerId}: ${name}`);
+    // console.log(`Received player info from ${fromPeerId}: ${name}`);
     
     const { updatePlayerName, connections, isHost } = usePeerStore.getState();
     updatePlayerName(fromPeerId, name);
@@ -30,7 +30,7 @@ export function playerInfo(fromPeerId, payload) {
 
 export function playerList(fromPeerId, payload) {
     const { players } = payload;
-    console.log(`Received player list from host:`, players);
+    // console.log(`Received player list from host:`, players);
     
     // Update our connections with the player names from host
     const { connections, peerId: myPeerId, playerName: myName } = usePeerStore.getState();
