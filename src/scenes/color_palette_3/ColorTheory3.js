@@ -16,6 +16,7 @@ export default function Scene() {
             <SimpleLighting ambientIntensity={0.6} directionalIntensity={2.0} />
             <EffectsV1 />
             <color attach="background" args={["#222"]} />
+
             {/*<RandomFloatingObjects palette={palette} />*/}
             <DynamicPaletteDrone palette={palette} />
             <PaletteInfoOverlay mode={mode} label={label} onSwitch={cycleMode} />

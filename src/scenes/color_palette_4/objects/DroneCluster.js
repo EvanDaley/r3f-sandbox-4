@@ -38,6 +38,7 @@ export default function DroneCluster({ palette }) {
         <>
             {drones.map((d, i) => (
                 <DynamicPaletteDrone2
+                    scale={[.2,.2,.2]}
                     key={i}
                     palette={palette}
                     position={[d.x, d.y, d.z]}
