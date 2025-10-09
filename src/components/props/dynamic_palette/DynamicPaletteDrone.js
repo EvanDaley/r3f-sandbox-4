@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo } from "react"
 import { useGLTF } from "@react-three/drei"
+import { SkeletonUtils } from "three-stdlib"
 import * as THREE from "three"
+import { applyVerticalGradient } from "../../../utils/applyVerticalGradient"
 
 const MODEL_PATH = window.location.href + "/models/color_palette/DynamicColorDrone.glb"
 
@@ -10,37 +12,59 @@ const DEFAULT_PALETTE = {
     tertiary: "#e9c46a",
 }
 
-export default function DynamicPaletteDrone({ palette, ...props }) {
-    const { scene } = useGLTF(MODEL_PATH)
+export default function DynamicPaletteDrone({
+                                   palette,
+                                   gradientMode = "low",
+                                   gradientEnabled = true,
+                                   ...props
+                               }) {
+    const { scene: original } = useGLTF(MODEL_PATH)
+    const scene = useMemo(() => SkeletonUtils.clone(original), [original])
     const active = useMemo(() => palette ?? DEFAULT_PALETTE, [palette])
 
     useEffect(() => {
-        if (!scene) return
+        const box = new THREE.Box3().setFromObject(scene)
+        const minY = box.min.y
+        const maxY = box.max.y
 
         scene.traverse((child) => {
-            if (!child.isMesh || !child.material) return
+            if (!child.isMesh) return
 
-            // Use object name or index to decide which palette color to apply
-            let color = null
+            const name = child.name.toLowerCase()
+            const isPrimary = name.includes("1") || name.includes("primary")
+            const isSecondary = name.includes("2") || name.includes("secondary")
+            const color = new THREE.Color(
+                isPrimary ? active.primary : isSecondary ? active.secondary : active.tertiary
+            )
 
-            if (child.name.toLowerCase().includes("1") || child.name.toLowerCase().includes("primary")) {
-                color = new THREE.Color(active.primary)
-            } else if (child.name.toLowerCase().includes("2") || child.name.toLowerCase().includes("secondary")) {
-                color = new THREE.Color(active.secondary)
+            child.geometry = child.geometry.clone()
+            const emissiveIntensity = isPrimary ? 0.2 : isSecondary ? 0.3 : 1
+
+            if (gradientEnabled) {
+                // ✅ Apply gradient mode
+                applyVerticalGradient(child.geometry, color, minY, maxY, gradientMode)
+                child.material = new THREE.MeshStandardMaterial({
+                    vertexColors: true,
+                    emissive: color.clone().multiplyScalar(emissiveIntensity),
+                    emissiveIntensity,
+                    roughness: 0.35,
+                    metalness: 0.3,
+                })
             } else {
-                color = new THREE.Color(active.tertiary)
+                // ✅ Bright, non-gradient mode (preserves original look)
+                child.material = child.material.clone()
+                child.material.color.copy(color)
+                child.material.emissive.copy(color)
+                child.material.emissiveIntensity = 0.8
+                child.material.metalness = 0.6
+                child.material.roughness = 0.3
+                child.material.needsUpdate = true
             }
 
-            // Apply color and emissive glow
-            child.material.color.copy(color)
-            child.material.emissive.copy(color)
-            // child.material.emissiveIntensity = 0.8
-            // child.material.metalness = 0.6
-            // child.material.roughness = 0.3
-            child.material.needsUpdate = true
             child.castShadow = true
+            child.receiveShadow = true
         })
-    }, [scene, active])
+    }, [scene, active, gradientMode, gradientEnabled])
 
     return <primitive object={scene} {...props} />
 }

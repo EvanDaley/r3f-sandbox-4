@@ -2,7 +2,7 @@
 import Peer from 'peerjs';
 import { usePeerStore } from '../stores/peerStore';
 import { routeMessage } from './MessageRouter';
-import {getRandomName} from "../helpers/stringHelpers";
+import {getRandomName} from "../utils/stringHelpers";
 
 const localHostName = 'local-host-dev-2'
 
