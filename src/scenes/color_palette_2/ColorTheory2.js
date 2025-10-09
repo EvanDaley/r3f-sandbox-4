@@ -37,7 +37,7 @@ export default function Scene() {
                 <Tree key={tree.id} position={tree.position} scale={tree.scale} />
             ))}
             <Player position={playerPos} setPlayerPos={setPlayerPos} targetRef={targetPos} />
-            <FogOfWar playerPos={playerPos} />
+            {/*<FogOfWar playerPos={playerPos} />*/}
         </>
     );
 }

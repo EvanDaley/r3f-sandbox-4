@@ -5,9 +5,9 @@ export default function HostControls() {
     const { connections, isHost, handleSceneChange } = usePeerConnection();
     const { scenes, currentSceneId, setSceneId } = useSceneStore();
 
-    if (!isHost || Object.keys(connections).length === 0) {
-        return null;
-    }
+    // if (!isHost || Object.keys(connections).length === 0) {
+    //     return null;
+    // }
 
     return (
         <div style={{
