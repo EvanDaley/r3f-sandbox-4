@@ -11,7 +11,6 @@ import { Leva } from "leva"
 export default function Scene() {
     const light = useRef()
 
-    // ✅ safer href-based path (handles trailing slashes / filenames)
     const baseHref = window.location.href.endsWith("/")
         ? window.location.href.slice(0, -1)
         : window.location.href
@@ -118,6 +117,8 @@ export default function Scene() {
                 intensity={1} // initial intensity of the shake
                 decayRate={0.65} // if decay = true this is the rate at which intensity will reduce at />
             />
+
+            {/*<Rays/>*/}
         </>
     )
 
@@ -126,10 +127,10 @@ export default function Scene() {
         useLayoutEffect(() => {
             scene.traverse((obj) => obj.isMesh && (obj.receiveShadow = obj.castShadow = true))
             materials.default.color.set('orange')
-            materials.default.roughness = .5
+            materials.default.roughness = .7
             materials.default.normalMap = new THREE.CanvasTexture(new FlakesTexture(), THREE.UVMapping, THREE.RepeatWrapping, THREE.RepeatWrapping)
             materials.default.normalMap.repeat.set(40, 40)
-            materials.default.normalScale.set(0.3, 0.3)
+            materials.default.normalScale.set(0.4, 0.4)
         })
         return <primitive object={scene} {...props} />
     }
