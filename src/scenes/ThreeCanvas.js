@@ -9,7 +9,6 @@ export default function ThreeCanvas() {
     return (
         <>
             <Canvas
-                shadows
                 dpr={[1, 2]}
                 style={{
                     zIndex: 20

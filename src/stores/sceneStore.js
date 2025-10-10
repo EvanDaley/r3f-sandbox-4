@@ -6,6 +6,7 @@ import ColorTheory2 from '../scenes/color_palette_2/ColorTheory2'
 import ColorTheory3 from '../scenes/color_palette_3/ColorTheory3'
 import ColorTheory4 from '../scenes/color_palette_4/ColorTheory4'
 import FullScreen1 from '../scenes/full_screen_1/FullScreen1'
+import FullScreen2 from '../scenes/full_screen_1/FullScreen2'
 
 const scenes = [
   { id: 'welcome', scene: WelcomeScreen },
@@ -14,8 +15,8 @@ const scenes = [
   { id: 'colorTheory2', scene: ColorTheory2 },
   { id: 'colorTheory3', scene: ColorTheory3 },
   { id: 'colorTheory4', scene: ColorTheory4 },
-  { id: 'colorTheory4', scene: ColorTheory4 },
   { id: 'fullScreen1', scene: FullScreen1 },
+  { id: 'fullScreen2', scene: FullScreen2 },
 ]
 
 const defaultScene = 'fullScreen1'
@@ -23,7 +24,9 @@ const defaultScene = 'fullScreen1'
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,
   scenes,
-  setSceneId: (id) => set({ currentSceneId: id }),
+  setSceneId: (id) => {
+    set({ currentSceneId: id })
+  },
   getCurrentSceneComponent: () => {
     const state = useSceneStore.getState()
     return scenes.find(s => s.id === state.currentSceneId)?.scene || null
