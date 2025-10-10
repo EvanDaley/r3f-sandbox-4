@@ -9,7 +9,7 @@ export default function HostControls() {
     //     return null;
     // }
 
-    return null;
+    // return null;
 
     return (
         <div style={{
