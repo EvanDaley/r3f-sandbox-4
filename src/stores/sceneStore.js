@@ -5,6 +5,7 @@ import ColorTheory1 from '../scenes/color_palette_1/ColorTheory1'
 import ColorTheory2 from '../scenes/color_palette_2/ColorTheory2'
 import ColorTheory3 from '../scenes/color_palette_3/ColorTheory3'
 import ColorTheory4 from '../scenes/color_palette_4/ColorTheory4'
+import FullScreen1 from '../scenes/full_screen_1/FullScreen1'
 
 const scenes = [
   { id: 'welcome', scene: WelcomeScreen },
@@ -13,9 +14,11 @@ const scenes = [
   { id: 'colorTheory2', scene: ColorTheory2 },
   { id: 'colorTheory3', scene: ColorTheory3 },
   { id: 'colorTheory4', scene: ColorTheory4 },
+  { id: 'colorTheory4', scene: ColorTheory4 },
+  { id: 'fullScreen1', scene: FullScreen1 },
 ]
 
-const defaultScene = 'colorTheory4'
+const defaultScene = 'fullScreen1'
 
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,
