@@ -6,6 +6,7 @@ import { useControls } from "leva"
 
 import { Center, AccumulativeShadows, RandomizedLight, Environment, useGLTF } from '@react-three/drei'
 import { FlakesTexture } from 'three-stdlib'
+import { Leva } from "leva"
 
 export default function Scene() {
     const light = useRef()
@@ -51,8 +52,11 @@ export default function Scene() {
         }
     })
 
+
     return (
         <>
+            <Leva hidden />
+
             {/*<OrbitControls target={[0, 1, 0]} maxPolarAngle={Math.PI / 2} minDistance={2} maxDistance={10} />*/}
             <hemisphereLight args={["#ffffff", "#8d8d8d", 0.15]} />
 
@@ -122,10 +126,10 @@ export default function Scene() {
         useLayoutEffect(() => {
             scene.traverse((obj) => obj.isMesh && (obj.receiveShadow = obj.castShadow = true))
             materials.default.color.set('orange')
-            // materials.default.roughness = 0
+            materials.default.roughness = .5
             materials.default.normalMap = new THREE.CanvasTexture(new FlakesTexture(), THREE.UVMapping, THREE.RepeatWrapping, THREE.RepeatWrapping)
             materials.default.normalMap.repeat.set(40, 40)
-            // materials.default.normalScale.set(0.1, 0.1)
+            materials.default.normalScale.set(0.3, 0.3)
         })
         return <primitive object={scene} {...props} />
     }
