@@ -16,6 +16,7 @@ import Tower3 from "../../components/props/dynamic_palette/Tower3";
 import SubDFast2 from "../../components/props/dynamic_palette/SubDFast2";
 import VideoPlane from "../../components/video/VideoPlane";
 import TowerScreen from "../../components/props/dynamic_palette/TowerScreen";
+import Casette from "../../components/props/dynamic_palette/Casette";
 
 export default function Scene() {
     const { mode, palette, label, cycleMode } = usePaletteControls()
@@ -26,6 +27,9 @@ export default function Scene() {
 
     return (
         <>
+            {/*<Casette />*/}
+
+
             <VideoPlane
                 src={`${window.location.href}/videos/generated/1.mp4`}
                 position={[0, 2, 0]}
@@ -78,7 +82,7 @@ export default function Scene() {
                 position={selected?.position || [0, 0, 0]}
                 color="#00ffff"
             />
-            {/*<SubDFast2 palette={palette}/>*/}
+            <SubDFast2 palette={palette}/>
 
         </>
     )
