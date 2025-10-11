@@ -7,6 +7,7 @@ import { useControls } from "leva"
 import { Center, AccumulativeShadows, RandomizedLight, Environment, useGLTF } from '@react-three/drei'
 import { FlakesTexture } from 'three-stdlib'
 import { Leva } from "leva"
+import SubDFast2 from "../../components/props/dynamic_palette/SubDFast2";
 
 export default function Scene() {
     const light = useRef()

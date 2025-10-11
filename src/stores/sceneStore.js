@@ -19,7 +19,7 @@ const scenes = [
   { id: 'fullScreen2', scene: FullScreen2 },
 ]
 
-const defaultScene = 'fullScreen1'
+const defaultScene = 'colorTheory4'
 
 const useSceneStore = create(set => ({
   currentSceneId: defaultScene,

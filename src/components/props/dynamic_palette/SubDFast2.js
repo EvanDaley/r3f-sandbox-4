@@ -4,7 +4,7 @@ import { SkeletonUtils } from "three-stdlib"
 import * as THREE from "three"
 import { applyVerticalGradient } from "../../../utils/applyVerticalGradient"
 
-const MODEL_PATH = window.location.href + "/models/color_palette/Tower3.glb"
+const MODEL_PATH = window.location.href + "/models/color_palette/Subdivision-fast-workflow2.glb"
 
 const DEFAULT_PALETTE = {
     primary: "#ffb703",
@@ -12,7 +12,7 @@ const DEFAULT_PALETTE = {
     tertiary: "#e9c46a",
 }
 
-export default function Tower3({
+export default function SubDFast2({
                                    palette,
                                    gradientMode = "low",
                                    gradientEnabled = true,

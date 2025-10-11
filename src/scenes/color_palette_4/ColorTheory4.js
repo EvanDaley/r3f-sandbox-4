@@ -13,6 +13,7 @@ import Tower2 from "../../components/props/dynamic_palette/Tower2"
 import useSelection from "./selection_ring/useSelection"
 import useSelectable from "./selection_ring/useSelectable"
 import Tower3 from "../../components/props/dynamic_palette/Tower3";
+import SubDFast2 from "../../components/props/dynamic_palette/SubDFast2";
 
 export default function Scene() {
     const { mode, palette, label, cycleMode } = usePaletteControls()
@@ -21,6 +22,9 @@ export default function Scene() {
 
     return (
         <>
+            <SubDFast2 palette={palette}/>
+
+
             <OrthoV2 />
             <SimpleLighting ambientIntensity={1.2} directionalIntensity={2.0} />
             <EffectsV1 />
