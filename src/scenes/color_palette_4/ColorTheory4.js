@@ -14,15 +14,23 @@ import useSelection from "./selection_ring/useSelection"
 import useSelectable from "./selection_ring/useSelectable"
 import Tower3 from "../../components/props/dynamic_palette/Tower3";
 import SubDFast2 from "../../components/props/dynamic_palette/SubDFast2";
+import VideoPlane from "../../components/video/VideoPlane";
+import TowerScreen from "../../components/props/dynamic_palette/TowerScreen";
 
 export default function Scene() {
     const { mode, palette, label, cycleMode } = usePaletteControls()
     const { selected, select, clear } = useSelection()
     const { handleSelect } = useSelectable(select)
 
+    console.log(`${window.location.href}/videos/generated/10.mp4`)
+
     return (
         <>
-            <SubDFast2 palette={palette}/>
+            <VideoPlane
+                src={`${window.location.href}/videos/generated/1.mp4`}
+                position={[0, 2, 0]}
+                height={5}
+            />
 
 
             <OrthoV2 />
@@ -35,18 +43,19 @@ export default function Scene() {
                 onClick={handleSelect("drone-1")}
             />
 
-            {/*<DroneCluster palette={palette} />*/}
+            <DroneCluster palette={palette} />
             <PaletteInfoOverlay mode={mode} label={label} onSwitch={cycleMode} />
 
-            <Tower1
+            <TowerScreen
                 palette={palette}
-                position={[-3, 0, -2]}
+                position={[-1, 0, 6]}
+                rotation={[0, Math.PI,0]}
                 onClick={handleSelect("tower-1")}
             />
 
             <Tower1
                 palette={palette}
-                position={[-3, 0, 6]}
+                position={[-3, 0, -3]}
                 onClick={handleSelect("tower-2")}
             />
 
@@ -69,6 +78,8 @@ export default function Scene() {
                 position={selected?.position || [0, 0, 0]}
                 color="#00ffff"
             />
+            {/*<SubDFast2 palette={palette}/>*/}
+
         </>
     )
 }

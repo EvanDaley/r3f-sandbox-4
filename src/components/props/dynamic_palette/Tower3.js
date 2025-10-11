@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react"
-import { useGLTF } from "@react-three/drei"
+import { useGLTF, useVideoTexture } from "@react-three/drei"
 import { SkeletonUtils } from "three-stdlib"
 import * as THREE from "three"
 import { applyVerticalGradient } from "../../../utils/applyVerticalGradient"
@@ -16,11 +16,16 @@ export default function Tower3({
                                    palette,
                                    gradientMode = "low",
                                    gradientEnabled = true,
+                                   videoSrc = "/videos/generated/2.mp4",
                                    ...props
                                }) {
     const { scene: original } = useGLTF(MODEL_PATH)
     const scene = useMemo(() => SkeletonUtils.clone(original), [original])
     const active = useMemo(() => palette ?? DEFAULT_PALETTE, [palette])
+
+    // Load the video texture
+    const videoUrl = `${window.location.href}/videos/generated/5.mp4`
+    const videoTexture = useVideoTexture(videoUrl, { muted: true, loop: true, autoplay: true })
 
     useEffect(() => {
         const box = new THREE.Box3().setFromObject(scene)
@@ -31,6 +36,32 @@ export default function Tower3({
             if (!child.isMesh) return
 
             const name = child.name.toLowerCase()
+
+            // 🎥 Apply video texture to specific meshes
+            if (name.includes("screen") || name.includes("display")) {
+                if (videoTexture?.image && videoTexture.image.paused) {
+                    videoTexture.image.play().catch(() => {})
+                }
+
+                videoTexture.encoding = THREE.sRGBEncoding
+                videoTexture.colorSpace = THREE.SRGBColorSpace
+                videoTexture.needsUpdate = true
+
+                videoTexture.wrapS = THREE.ClampToEdgeWrapping
+                videoTexture.wrapT = THREE.ClampToEdgeWrapping
+                videoTexture.repeat.set(1, -1) // flip vertically
+                videoTexture.offset.y = 1
+
+                child.material = new THREE.MeshBasicMaterial({
+                    map: videoTexture,
+                    side: THREE.DoubleSide,
+                    toneMapped: false,
+                })
+
+                return
+            }
+
+            // 🎨 Otherwise apply the normal palette colors
             const isPrimary = name.includes("1") || name.includes("primary")
             const isSecondary = name.includes("2") || name.includes("secondary")
             const color = new THREE.Color(
@@ -41,7 +72,6 @@ export default function Tower3({
             const emissiveIntensity = isPrimary ? 0.2 : isSecondary ? 0.3 : 1
 
             if (gradientEnabled) {
-                // ✅ Apply gradient mode
                 applyVerticalGradient(child.geometry, color, minY, maxY, gradientMode)
                 child.material = new THREE.MeshStandardMaterial({
                     vertexColors: true,
@@ -51,7 +81,6 @@ export default function Tower3({
                     metalness: 0.3,
                 })
             } else {
-                // ✅ Bright, non-gradient mode (preserves original look)
                 child.material = child.material.clone()
                 child.material.color.copy(color)
                 child.material.emissive.copy(color)
@@ -64,7 +93,7 @@ export default function Tower3({
             child.castShadow = true
             child.receiveShadow = true
         })
-    }, [scene, active, gradientMode, gradientEnabled])
+    }, [scene, active, gradientMode, gradientEnabled, videoTexture])
 
     return <primitive object={scene} {...props} />
 }
